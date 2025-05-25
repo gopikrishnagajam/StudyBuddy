@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Study Buddy</title>
+  
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Global styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background-color: #f5f5f5;
+    }
+
+    main {
+      flex: 1 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .btn, .btn-large {
+      background-color: #2196F3;
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    .btn:hover, .btn-large:hover {
+      background-color: #1976D2;
+    }
+
+    /* Form card */
+    .auth-card {
+      max-width: 450px;
+      width: 100%;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .auth-title {
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #2196F3;
+      text-align: center;
+    }
+
+    .input-field input:focus {
+      border-bottom: 1px solid #2196F3 !important;
+      box-shadow: 0 1px 0 0 #2196F3 !important;
+    }
+
+    .input-field input:focus + label {
+      color: #2196F3 !important;
+    }
+
+    .auth-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #2196F3;
+    }
+
+    .auth-logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .auth-logo i {
+      font-size: 3rem;
+      color: #2196F3;
+    }
+
+    /* Error message styles */
+    .error-message {
+      background-color: #FFEBEE;
+      color: #B71C1C;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    /* Form validation styles */
+    .input-field input.valid {
+      border-bottom: 1px solid #4CAF50 !important;
+      box-shadow: 0 1px 0 0 #4CAF50 !important;
+    }
+
+    .input-field input.invalid {
+      border-bottom: 1px solid #F44336 !important;
+      box-shadow: 0 1px 0 0 #F44336 !important;
+    }
+
+    /* Accessibility */
+    a:focus, button:focus, input:focus {
+      outline: 2px solid #2196F3;
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #2196F3;
+      color: white;
+      padding: 8px;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+    
+    /* Helptext styles */
+    .helptext {
+      font-size: 0.85rem;
+      color: #757575;
+      display: block;
+      margin-top: -15px;
+      margin-bottom: 15px;
+    }
+    
+    /* Django messages */
+    .messages {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+    
+    .messages li {
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+    
+    .messages .error {
+      background-color: #FFEBEE;
+      color: #B71C1C;
+    }
+    
+    .messages .success {
+      background-color: #E8F5E9;
+      color: #1B5E20;
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <main id="main-content">
+    <div class="auth-card card">
+      <div class="auth-logo">
+        <i class="material-icons">school</i>
+      </div>
+      <h2 class="auth-title">Welcome Back</h2>
+      
+      {% if messages %}
+      <ul class="messages" role="alert" aria-live="assertive">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <form method="post">
+        {% csrf_token %}
+        
+        <!-- Django form errors -->
+        {% if form.non_field_errors %}
+        <div class="error-message">
+          {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+        
+        <!-- Username input -->
+        <div class="input-field">
+          {{ form.username }}
+          <label for="{{ form.username.id_for_label }}">Username</label>
+          {% if form.username.errors %}
+          <div class="error-message">
+            {% for error in form.username.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Password input -->
+        <div class="input-field">
+          {{ form.password }}
+          <label for="{{ form.password.id_for_label }}">Password</label>
+          {% if form.password.errors %}
+          <div class="error-message">
+            {% for error in form.password.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Submit button -->
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+          Login
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+      
+      <!-- Link to forgot password -->
+      <a href="{% url 'password_reset' %}" class="auth-link" style="margin-top: 10px;">Forgot your password?</a>
+      
+      <!-- Link to register page -->
+      <a href="{% url 'register' %}" class="auth-link">Don't have an account? Register</a>
+    </div>
+  </main>
+  
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

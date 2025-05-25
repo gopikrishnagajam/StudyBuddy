@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Study Buddy</title>
+  
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Global styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background-color: #f5f5f5;
+    }
+
+    main {
+      flex: 1 0 auto;
+      padding: 20px 0;
+    }
+
+    .btn, .btn-large {
+      background-color: #2196F3;
+      border-radius: 4px;
+    }
+
+    .btn:hover, .btn-large:hover {
+      background-color: #1976D2;
+    }
+
+    /* Navbar */
+    nav .brand-logo {
+      font-weight: 600;
+    }
+
+    .dropdown-content {
+      border-radius: 4px;
+      top: 64px !important;
+    }
+
+    /* Page title */
+    .page-title {
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #2196F3;
+    }
+
+    /* Filter bar */
+    .filter-bar {
+      background-color: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .filter-bar .input-field {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .filter-bar select {
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #9e9e9e;
+      border-radius: 0;
+      height: 3rem;
+    }
+
+    .filter-bar select:focus {
+      outline: none;
+      border-bottom: 1px solid #2196F3;
+    }
+
+    /* Group card */
+    .group-card {
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .group-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+
+    .group-card .card-content {
+      padding: 20px;
+    }
+
+    .group-card .card-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #2196F3;
+      font-size: 1.3rem;
+    }
+
+    .group-detail {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .group-detail i {
+      margin-right: 10px;
+      color: #757575;
+    }
+
+    .group-card .card-action {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px 20px;
+      border-top: 1px solid #eeeeee;
+    }
+
+    /* Hero banner */
+    .dashboard-hero {
+      background-color: #2196F3;
+      padding: 30px;
+      border-radius: 8px;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .dashboard-hero h2 {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .dashboard-hero p {
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .dashboard-hero .btn {
+      background-color: white;
+      color: #2196F3;
+    }
+
+    .dashboard-hero .btn:hover {
+      background-color: #f5f5f5;
+    }
+
+    /* Floating action button */
+    .fixed-action-btn {
+      bottom: 30px;
+      right: 30px;
+    }
+
+    /* Footer */
+    .page-footer {
+      background-color: #2196F3;
+    }
+
+    /* Accessibility */
+    a:focus, button:focus, select:focus {
+      outline: 2px solid #2196F3;
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #2196F3;
+      color: white;
+      padding: 8px;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* Responsive adjustments */
+    @media only screen and (max-width: 992px) {
+      .dashboard-hero {
+        text-align: center;
+      }
+      
+      .filter-bar {
+        text-align: center;
+      }
+      
+      .filter-bar .input-field {
+        margin-bottom: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Navbar -->
+  <header>
+    <div class="navbar-fixed">
+      <nav class="blue" role="navigation" aria-label="Main navigation">
+        <div class="nav-wrapper container">
+          <a id="logo-container" href="index.html" class="brand-logo">Study Buddy</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="dashboard.html">Find Groups</a></li>
+            <li><a href="create_group.html">Create Group</a></li>
+            <li><a href="#" class="dropdown-trigger" data-target="user-dropdown">
+              <i class="material-icons left">account_circle</i>My Account<i class="material-icons right">arrow_drop_down</i>
+            </a></li>
+          </ul>
+          
+          <!-- User dropdown -->
+          <ul id="user-dropdown" class="dropdown-content">
+            <li><a href="profile.html"><i class="material-icons">person</i>Profile</a></li>
+            <li><a href="#"><i class="material-icons">settings</i>Settings</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><i class="material-icons">exit_to_app</i>Logout</a></li>
+          </ul>
+          
+          <!-- Mobile navigation -->
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul id="mobile-nav" class="sidenav">
+            <li><a href="dashboard.html">Find Groups</a></li>
+            <li><a href="create_group.html">Create Group</a></li>
+            <li><a href="profile.html">My Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container">
+    <!-- Dashboard hero -->
+    <div class="dashboard-hero">
+      <div class="row">
+        <div class="col s12 m8">
+          <h2>Find Your Study Group</h2>
+          <p>Browse and join study groups or create your own to connect with fellow students</p>
+        </div>
+        <div class="col s12 m4 hide-on-small-only" style="text-align: right;">
+          <a href="create_group.html" class="btn waves-effect waves-light">Create Group</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <div class="row">
+        <div class="col s12 m6">
+          <div class="input-field">
+            <select id="subject-filter" aria-label="Filter by subject">
+              <option value="" disabled selected>Filter by subject</option>
+              <option value="1">Mathematics</option>
+              <option value="2">Physics</option>
+              <option value="3">Chemistry</option>
+              <option value="4">Biology</option>
+              <option value="5">Computer Science</option>
+              <option value="6">History</option>
+              <option value="7">English Literature</option>
+              <option value="8">Psychology</option>
+            </select>
+            <label for="subject-filter">Subject</label>
+          </div>
+        </div>
+        <div class="col s12 m6">
+          <div class="input-field">
+            <input id="search" type="text" placeholder="Search groups...">
+            <label for="search">Search</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group cards -->
+    <div class="row">
+      <!-- Group 1 -->
+      <div class="col s12 m6 l4">
+        <div class="card group-card">
+          <div class="card-content">
+            <span class="card-title">Calculus Study Group</span>
+            
+            <div class="group-detail">
+              <i class="material-icons">school</i>
+              <span>Mathematics</span>
+            </div>
+            
+            <div class="group-detail">
+              <i class="material-icons">group</i>
+              <span>4/8 members</span>
+            </div>
+            
+            <div class="group-detail">
+              <i class="material-icons">event</i>
+              <span>Tuesdays, 4:00 PM</span>
+            </div>
+          </div>
+          <div class="card-action">
+            <a href="group_detail.html" class="btn waves-effect waves-light">Join Group</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Group 2 -->
+      <div class="col s12 m6 l4">
+        <div class="card group-card">
+          <div class="card-content">
+            <span class="card-title">Python Programming</span>
+            
+            <div class="group-detail">
+              <i class="material-icons">school</i>
+              <span>Computer Science</span>
+            </div>
+            
+            <div class="group-detail">
+              <i class="material-icons">group</i>
+              <span>6/10 members</span>
+            </div>
+            
+            <div class="group-detail">
+              <i class="material-icons">event</i>
+              <span>Fridays, 5:30 PM</span>
+            </div>
+          </div>
+          <div class="card-action">
+            <a href="group_detail.html" class="btn waves-effect waves-light">Join Group</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Group 3 -->
+      <div class="col s12 m6 l4">
+        <div class="card group-card">
+          <div class="card-content">
+            <span class="card-title">Organic Chemistry</span>
+            
+            <div class="group-detail">
+              <i class="material-icons">school</i>
+              <span>Chemistry</span>
+            </div>
+            
+            <div class="group-detail">
+              <i class="material-icons">group</i>
+              <span>3/6 members</span>
+            </div>
+            
+            <div class="group-detail">
+              <i class="material-icons">event</i>
+              <span>Mondays, 6:00 PM</span>
+            </div>
+          </div>
+          <div class="card-action">
+            <a href="group_detail.html" class="btn waves-effect waves-light">Join Group</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Group 4 -->
+      <div class="col s12 m6 l4">
+        <div class="card group-card">
+          <div class="card-content">
+            <span class="card-title">World History Group</span>
+            
+            <div class="group-detail">
+              <i class="material-icons">school</i>
+              <span>History</span>
+            </div>
+            
+            <div class="group-detail">
+              <i class="material-icons">group</i>
+              <span>5/8 members</span>
+            </div>
+            
+            <div class="group-detail">
+              <i class="material-icons">event</i>
+              <span>Wednesdays, 3:30 PM</span>
+            </div>
+          </div>
+          <div class="card-action">
+            <a href="group_detail.html" class="btn waves-effect waves-light">Join Group</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Group 5 -->
+      <div class="col s12 m6 l4">
+        <div class="card group-card">
+          <div class="card-content">
+            <span class="card-title">Molecular Biology</span>
+            
+            <div class="group-detail">
+              <i class="material-icons">school</i>
+              <span>Biology</span>
+            </div>
+            
+            <div class="group-detail">
+              <i class="material-icons">group</i>
+              <span>2/5 members</span>
+            </div>
+            
+            <div class="group-detail">
+              <i class="material-icons">event</i>
+              <span>Thursdays, 5:00 PM</span>
+            </div>
+          </div>
+          <div class="card-action">
+            <a href="group_detail.html" class="btn waves-effect waves-light">Join Group</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Group 6 -->
+      <div class="col s12 m6 l4">
+        <div class="card group-card">
+          <div class="card-content">
+            <span class="card-title">Shakespeare Studies</span>
+            
+            <div class="group-detail">
+              <i class="material-icons">school</i>
+              <span>English Literature</span>
+            </div>
+            
+            <div class="group-detail">
+              <i class="material-icons">group</i>
+              <span>4/6 members</span>
+            </div>
+            
+            <div class="group-detail">
+              <i class="material-icons">event</i>
+              <span>Tuesdays, 7:00 PM</span>
+            </div>
+          </div>
+          <div class="card-action">
+            <a href="group_detail.html" class="btn waves-effect waves-light">Join Group</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile floating action button -->
+    <div class="fixed-action-btn hide-on-med-and-up">
+      <a href="create_group.html" class="btn-floating btn-large blue pulse">
+        <i class="large material-icons">add</i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container center-align">
+        &copy; 2023 Study Buddy. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

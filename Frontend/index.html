@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Buddy - Find Your Perfect Study Partner</title>
+  
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Global styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background-color: #f5f5f5;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    .btn, .btn-large {
+      background-color: #2196F3;
+      border-radius: 4px;
+    }
+
+    .btn:hover, .btn-large:hover {
+      background-color: #1976D2;
+    }
+
+    /* Hero section */
+    .hero {
+      background-color: #2196F3;
+      color: white;
+      padding: 80px 0;
+      margin-top: -20px;
+    }
+
+    .hero h1 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 3rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero .btn-large {
+      background-color: white;
+      color: #2196F3;
+      font-weight: 500;
+    }
+    
+    .hero .btn-large:hover {
+      background-color: #f5f5f5;
+    }
+
+    /* Features section */
+    .features {
+      padding: 60px 0;
+    }
+
+    .features .card {
+      height: 100%;
+      border-radius: 8px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .features .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+    }
+
+    .features .card-image {
+      padding: 20px;
+      background-color: #f5f5f5;
+      text-align: center;
+    }
+
+    .features .material-icons {
+      font-size: 4rem;
+      color: #2196F3;
+    }
+
+    .features .card-title {
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+    
+    /* Navbar */
+    nav .brand-logo {
+      font-weight: 600;
+    }
+    
+    /* Footer */
+    .page-footer {
+      background-color: #2196F3;
+      margin-top: 40px;
+    }
+
+    /* Accessibility */
+    a:focus, button:focus {
+      outline: 2px solid white;
+      outline-offset: 2px;
+    }
+    
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #2196F3;
+      color: white;
+      padding: 8px;
+      z-index: 1000;
+    }
+    
+    .skip-link:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Navbar -->
+  <header>
+    <div class="navbar-fixed">
+      <nav class="blue" role="navigation" aria-label="Main navigation">
+        <div class="nav-wrapper container">
+          <a id="logo-container" href="#" class="brand-logo">Study Buddy</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html" class="btn white blue-text text-darken-2">Sign Up</a></li>
+          </ul>
+          
+          <!-- Mobile navigation -->
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul id="mobile-nav" class="sidenav">
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html">Sign Up</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container center-align">
+        <h1>Study Better Together</h1>
+        <p>Find study groups, stay organized, and ace your classes with Study Buddy</p>
+        <a href="register.html" class="btn-large waves-effect waves-light pulse">Get Started</a>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+      <div class="container">
+        <h2 class="center-align" style="margin-bottom: 40px; font-weight: 600;">How Study Buddy Works</h2>
+        <div class="row">
+          <!-- Feature 1 -->
+          <div class="col s12 m4">
+            <div class="card hoverable">
+              <div class="card-image">
+                <i class="material-icons">group</i>
+              </div>
+              <div class="card-content center-align">
+                <span class="card-title">Find Study Groups</span>
+                <p>Connect with classmates and join study groups for your courses</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Feature 2 -->
+          <div class="col s12 m4">
+            <div class="card hoverable">
+              <div class="card-image">
+                <i class="material-icons">check_circle</i>
+              </div>
+              <div class="card-content center-align">
+                <span class="card-title">Stay Accountable</span>
+                <p>Track your study sessions and stay motivated with group accountability</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Feature 3 -->
+          <div class="col s12 m4">
+            <div class="card hoverable">
+              <div class="card-image">
+                <i class="material-icons">school</i>
+              </div>
+              <div class="card-content center-align">
+                <span class="card-title">Learn Together</span>
+                <p>Share resources, notes, and tackle difficult concepts as a team</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container center-align">
+        &copy; 2023 Study Buddy. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

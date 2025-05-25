@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculus Study Group - Study Buddy</title>
+  
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Global styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background-color: #f5f5f5;
+    }
+
+    main {
+      flex: 1 0 auto;
+      padding: 20px 0;
+    }
+
+    .btn, .btn-large {
+      background-color: #2196F3;
+      border-radius: 4px;
+    }
+
+    .btn:hover, .btn-large:hover {
+      background-color: #1976D2;
+    }
+
+    /* Navbar */
+    nav .brand-logo {
+      font-weight: 600;
+    }
+
+    .dropdown-content {
+      border-radius: 4px;
+      top: 64px !important;
+    }
+
+    /* Group header */
+    .group-header {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .group-title {
+      font-weight: 600;
+      color: #2196F3;
+      margin-bottom: 5px;
+    }
+
+    .group-subject {
+      color: #757575;
+      display: inline-block;
+      margin-right: 20px;
+      margin-bottom: 15px;
+    }
+
+    .group-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .meta-item i {
+      color: #9e9e9e;
+      margin-right: 5px;
+    }
+
+    /* Member section */
+    .members-section {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #424242;
+    }
+
+    .member-chip {
+      background-color: #e3f2fd;
+      color: #2196F3;
+      font-weight: 500;
+      border-radius: 16px;
+      padding: 0 12px;
+      height: 32px;
+      line-height: 32px;
+      margin: 5px;
+    }
+
+    /* Discussion section */
+    .discussion-section {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .message {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      background-color: #f5f5f5;
+      position: relative;
+    }
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .message-user {
+      font-weight: 600;
+      color: #2196F3;
+    }
+
+    .message-time {
+      color: #9e9e9e;
+      font-size: 0.9rem;
+    }
+
+    .message-content {
+      color: #424242;
+    }
+
+    /* Comment form */
+    .comment-form {
+      margin-top: 30px;
+    }
+
+    .comment-form textarea {
+      border-radius: 8px;
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      resize: none;
+    }
+
+    .comment-form textarea:focus {
+      border-color: #2196F3;
+      box-shadow: 0 0 0 1px #2196F3;
+    }
+
+    .comment-form button {
+      margin-top: 10px;
+    }
+
+    /* Footer */
+    .page-footer {
+      background-color: #2196F3;
+    }
+
+    /* Accessibility */
+    a:focus, button:focus, textarea:focus {
+      outline: 2px solid #2196F3;
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #2196F3;
+      color: white;
+      padding: 8px;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* Responsive adjustments */
+    @media only screen and (max-width: 600px) {
+      .group-meta {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Navbar -->
+  <header>
+    <div class="navbar-fixed">
+      <nav class="blue" role="navigation" aria-label="Main navigation">
+        <div class="nav-wrapper container">
+          <a id="logo-container" href="index.html" class="brand-logo">Study Buddy</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="dashboard.html">Find Groups</a></li>
+            <li><a href="create_group.html">Create Group</a></li>
+            <li><a href="#" class="dropdown-trigger" data-target="user-dropdown">
+              <i class="material-icons left">account_circle</i>My Account<i class="material-icons right">arrow_drop_down</i>
+            </a></li>
+          </ul>
+          
+          <!-- User dropdown -->
+          <ul id="user-dropdown" class="dropdown-content">
+            <li><a href="profile.html"><i class="material-icons">person</i>Profile</a></li>
+            <li><a href="#"><i class="material-icons">settings</i>Settings</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><i class="material-icons">exit_to_app</i>Logout</a></li>
+          </ul>
+          
+          <!-- Mobile navigation -->
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul id="mobile-nav" class="sidenav">
+            <li><a href="dashboard.html">Find Groups</a></li>
+            <li><a href="create_group.html">Create Group</a></li>
+            <li><a href="profile.html">My Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container">
+    <!-- Group Header -->
+    <section class="group-header">
+      <h1 class="group-title">Calculus Study Group</h1>
+      <span class="group-subject">Mathematics</span>
+      
+      <div class="group-meta">
+        <div class="meta-item">
+          <i class="material-icons tiny">group</i>
+          <span>4/8 members</span>
+        </div>
+        <div class="meta-item">
+          <i class="material-icons tiny">event</i>
+          <span>Tuesdays, 4:00 PM</span>
+        </div>
+        <div class="meta-item">
+          <i class="material-icons tiny">location_on</i>
+          <span>Library, Room 204</span>
+        </div>
+      </div>
+      
+      <p class="group-description">
+        A study group focused on Calculus I and II topics. We'll be working through practice problems, preparing for exams, and discussing challenging concepts together.
+      </p>
+      
+      <div class="group-actions">
+        <a href="#" class="btn waves-effect waves-light">
+          <i class="material-icons left">group_add</i>
+          Join Group
+        </a>
+      </div>
+    </section>
+    
+    <!-- Members Section -->
+    <section class="members-section">
+      <h2 class="section-title">Members</h2>
+      
+      <div class="members-list">
+        <span class="member-chip">Sarah J. (Host)</span>
+        <span class="member-chip">David L.</span>
+        <span class="member-chip">Emma W.</span>
+        <span class="member-chip">Michael T.</span>
+      </div>
+    </section>
+    
+    <!-- Discussion Section -->
+    <section class="discussion-section">
+      <h2 class="section-title">Group Discussion</h2>
+      
+      <div class="messages-container">
+        <!-- Message 1 -->
+        <div class="message">
+          <div class="message-header">
+            <span class="message-user">Sarah J.</span>
+            <span class="message-time">Yesterday at 3:45 PM</span>
+          </div>
+          <p class="message-content">
+            Welcome everyone to the Calculus study group! I'm excited to work with all of you this semester. For our first meeting, please bring your textbooks and any questions you have about the first three chapters.
+          </p>
+        </div>
+        
+        <!-- Message 2 -->
+        <div class="message">
+          <div class="message-header">
+            <span class="message-user">David L.</span>
+            <span class="message-time">Yesterday at 5:20 PM</span>
+          </div>
+          <p class="message-content">
+            Thanks for setting this up, Sarah! I've been struggling with the integration by parts section. Would it be possible to focus on that during our first meeting?
+          </p>
+        </div>
+        
+        <!-- Message 3 -->
+        <div class="message">
+          <div class="message-header">
+            <span class="message-user">Emma W.</span>
+            <span class="message-time">Today at 9:15 AM</span>
+          </div>
+          <p class="message-content">
+            I'm also having trouble with that section. I found some good practice problems online that we could work through together. I'll bring them to the meeting!
+          </p>
+        </div>
+      </div>
+      
+      <!-- Comment Form -->
+      <form class="comment-form">
+        <div class="input-field">
+          <textarea id="message" class="materialize-textarea" placeholder="Type your message here..." rows="3" required aria-required="true"></textarea>
+        </div>
+        <button type="submit" class="btn waves-effect waves-light">
+          Post Message
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container center-align">
+        &copy; 2023 Study Buddy. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

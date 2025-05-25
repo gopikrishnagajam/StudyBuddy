@@ -1,0 +1,63 @@
+/* Custom global styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #f5f5f5;
+  }
+  
+  main {
+    flex: 1 0 auto;
+  }
+  
+  .btn, .btn-large {
+    background-color: #2196F3;
+    border-radius: 4px;
+  }
+  
+  .btn:hover, .btn-large:hover {
+    background-color: #1976D2;
+  }
+  
+  .card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .page-title {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  
+  .navbar-fixed {
+    margin-bottom: 20px;
+  }
+  
+  .section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .footer-copyright {
+    padding: 15px 0;
+  }
+  
+  /* Accessibility improvements */
+  a:focus, button:focus, input:focus, textarea:focus, select:focus {
+    outline: 2px solid #2196F3;
+  }
+  
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #2196F3;
+    color: white;
+    padding: 8px;
+    z-index: 1000;
+  }
+  
+  .skip-link:focus {
+    top: 0;
+  }

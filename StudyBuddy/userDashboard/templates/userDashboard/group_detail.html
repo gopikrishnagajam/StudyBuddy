@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ group.title }} - Study Buddy</title>
+  
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Global styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background-color: #f5f5f5;
+    }
+
+    main {
+      flex: 1 0 auto;
+      padding: 20px 0;
+    }
+
+    .btn, .btn-large {
+      background-color: #2196F3;
+      border-radius: 4px;
+    }
+
+    .btn:hover, .btn-large:hover {
+      background-color: #1976D2;
+    }
+
+    /* Navbar */
+    nav .brand-logo {
+      font-weight: 600;
+    }
+
+    .dropdown-content {
+      border-radius: 4px;
+      top: 64px !important;
+    }
+
+    /* Group header */
+    .group-header {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .group-title {
+      font-weight: 600;
+      color: #2196F3;
+      margin-bottom: 5px;
+    }
+
+    .group-subject {
+      color: #757575;
+      display: inline-block;
+      margin-right: 20px;
+      margin-bottom: 15px;
+    }
+
+    .group-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .meta-item i {
+      color: #9e9e9e;
+      margin-right: 5px;
+    }
+
+    .group-description {
+      margin-bottom: 20px;
+    }
+
+    .group-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* Members section */
+    .members-section {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #424242;
+      margin-bottom: 15px;
+    }
+
+    .members-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .member-chip {
+      background-color: #e0e0e0;
+      padding: 5px 12px;
+      border-radius: 16px;
+      display: inline-block;
+    }
+    
+    /* Pending requests section */
+    .requests-section {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .requests-list {
+      margin-bottom: 0;
+    }
+    
+    .request-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .request-item:last-child {
+      border-bottom: none;
+    }
+    
+    .request-user {
+      font-weight: 500;
+    }
+    
+    .request-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .pending-badge {
+      background-color: #ff9800;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    /* Discussion section */
+    .discussion-section {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .messages-container {
+      margin-bottom: 20px;
+    }
+
+    .message {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 10px 0;
+    }
+
+    .message:last-child {
+      border-bottom: none;
+    }
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    .message-user {
+      font-weight: 500;
+      color: #2196F3;
+    }
+
+    .message-time {
+      color: #9e9e9e;
+      font-size: 0.8rem;
+    }
+
+    .message-content {
+      margin: 0;
+    }
+
+    .comment-form {
+      margin-top: 20px;
+    }
+
+    .materialize-textarea {
+      border: 1px solid #e0e0e0 !important;
+      padding: 10px !important;
+      border-radius: 4px;
+      height: 100px !important;
+    }
+
+    /* Mobile responsive adjustments */
+    @media only screen and (max-width: 600px) {
+      .group-meta {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .group-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  {% comment %} <a href="#main-content" class="skip-link">Skip to main content</a> {% endcomment %}
+
+  <!-- Navbar -->
+  <header>
+    <div class="navbar-fixed">
+      <nav class="blue darken-1">
+        <div class="nav-wrapper container">
+          <a href="{% url 'dashboard' %}" class="brand-logo">Study Buddy</a>
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'dashboard' %}">Find Groups</a></li>
+            <li><a href="{% url 'create_group' %}">Create Group</a></li>
+            <li><a href="{% url 'profile' %}">My Profile</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+          </ul>
+
+          <ul id="mobile-nav" class="sidenav">
+            <li><a href="{% url 'dashboard' %}">Find Groups</a></li>
+            <li><a href="{% url 'create_group' %}">Create Group</a></li>
+            <li><a href="{% url 'profile' %}">My Profile</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container">
+    {% if group %}
+    <!-- Group Header -->
+    <section class="group-header">
+      <h1 class="group-title">{{ group.title }}</h1>
+      <span class="group-subject">{{ group.subject.name }}</span>
+      
+      <div class="group-meta">
+        <div class="meta-item">
+          <i class="material-icons tiny">group</i>
+          <span>{{ group.current_member_count }}/{{ group.max_members }} members</span>
+        </div>
+        <div class="meta-item">
+          <i class="material-icons tiny">event</i>
+          <span>{{ group.meeting_date|date:"l" }}s, {{ group.meeting_time|time:"g:i A" }}</span>
+        </div>
+        {% if group.meeting_location %}
+        <div class="meta-item">
+          <i class="material-icons tiny">location_on</i>
+          <span>{{ group.meeting_location }}</span>
+        </div>
+        {% endif %}
+      </div>
+      
+      <p class="group-description">
+        {{ group.description }}
+      </p>
+      
+      <div class="group-actions">
+        {% if not is_member %}
+          {% if has_pending_request %}
+            <button disabled class="btn waves-effect waves-light grey">
+              <i class="material-icons left">hourglass_empty</i>
+              Request Pending
+            </button>
+          {% else %}
+            <form method="POST" action="{% url 'join_group' group.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn waves-effect waves-light">
+                <i class="material-icons left">group_add</i>
+                Request to Join
+              </button>
+            </form>
+          {% endif %}
+        {% elif is_host %}
+        <a href="{% url 'edit_group' group.id %}" class="btn waves-effect waves-light">
+          <i class="material-icons left">edit</i>
+          Edit Group
+        </a>
+        {% else %}
+        <form method="POST" action="{% url 'leave_group' group.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn waves-effect waves-light red">
+            <i class="material-icons left">exit_to_app</i>
+            Leave Group
+          </button>
+        </form>
+        {% endif %}
+      </div>
+    </section>
+    
+    {% if is_host and pending_requests %}
+    <!-- Pending Requests Section -->
+    <section class="requests-section">
+      <h2 class="section-title">
+        Pending Join Requests
+        <span class="new badge blue" data-badge-caption="pending">{{ pending_requests|length }}</span>
+      </h2>
+      
+      <ul class="requests-list collection">
+        {% for request in pending_requests %}
+        <li class="request-item collection-item">
+          <span class="request-user">{{ request.user.get_full_name|default:request.user.username }}</span>
+          <div class="request-actions">
+            <form method="POST" action="{% url 'approve_request' request.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-small green">
+                <i class="material-icons left">check</i>
+                Approve
+              </button>
+            </form>
+            <form method="POST" action="{% url 'decline_request' request.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-small red">
+                <i class="material-icons left">close</i>
+                Decline
+              </button>
+            </form>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+    
+    <!-- Members Section -->
+    <section class="members-section">
+      <h2 class="section-title">Members</h2>
+      
+      <div class="members-list">
+        {% for membership in group.groupmembership_set.all %}
+        <span class="member-chip">
+          {{ membership.user.get_full_name|default:membership.user.username }}
+          {% if membership.user == group.host %}(Host){% endif %}
+        </span>
+        {% endfor %}
+      </div>
+    </section>
+    
+    <!-- Discussion Section -->
+    <section class="discussion-section">
+      <h2 class="section-title">Group Discussion</h2>
+      
+      <div class="messages-container">
+        {% if messages_list %}
+          {% for message in messages_list %}
+          <div class="message">
+            <div class="message-header">
+              <span class="message-user">{{ message.user.get_full_name|default:message.user.username }}</span>
+              <span class="message-time">{{ message.timestamp|date:"F j, Y" }} at {{ message.timestamp|time:"g:i A" }}</span>
+            </div>
+            <p class="message-content">
+              {{ message.content }}
+            </p>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p class="center-align">No messages yet. Be the first to post!</p>
+        {% endif %}
+      </div>
+      
+      <!-- Comment Form -->
+      {% if is_member or is_host %}
+      <form class="comment-form" method="POST" action="{% url 'group_details' group.id %}">
+        {% csrf_token %}
+        <div class="input-field">
+          <textarea id="message" name="message" class="materialize-textarea" placeholder="Type your message here..." rows="3" required aria-required="true"></textarea>
+        </div>
+        <button type="submit" class="btn waves-effect waves-light">
+          Post Message
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+      {% else %}
+      <div class="card-panel blue lighten-4">
+        <span>You must join this group to participate in discussions.</span>
+        {% if has_pending_request %}
+        <span class="pending-badge">Request Pending</span>
+        {% endif %}
+      </div>
+      {% endif %}
+    </section>
+    {% else %}
+    <div class="card-panel">
+      <p class="center-align">Study group not found. <a href="{% url 'dashboard' %}">Return to dashboard</a></p>
+    </div>
+    {% endif %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer blue darken-2">
+    <div class="footer-copyright blue darken-3">
+      <div class="container">
+        © 2023 Study Buddy
+      </div>
+    </div>
+  </footer>
+
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize sidenav
+      var elems = document.querySelectorAll('.sidenav');
+      var instances = M.Sidenav.init(elems);
+    });
+  </script>
+</body>
+</html>

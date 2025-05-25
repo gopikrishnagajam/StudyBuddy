@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit {{ group.title }} - Study Buddy</title>
+  
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Global styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background-color: #f5f5f5;
+    }
+
+    main {
+      flex: 1 0 auto;
+      padding: 20px 0;
+    }
+
+    .btn, .btn-large {
+      background-color: #2196F3;
+      border-radius: 4px;
+    }
+
+    .btn:hover, .btn-large:hover {
+      background-color: #1976D2;
+    }
+
+    /* Navbar */
+    nav .brand-logo {
+      font-weight: 600;
+    }
+
+    .dropdown-content {
+      border-radius: 4px;
+      top: 64px !important;
+    }
+
+    /* Form card */
+    .form-card {
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #2196F3;
+    }
+
+    /* Form elements */
+    .input-field {
+      margin-bottom: 20px;
+    }
+
+    .input-field input:focus,
+    .input-field textarea:focus {
+      border-bottom: 1px solid #2196F3 !important;
+      box-shadow: 0 1px 0 0 #2196F3 !important;
+    }
+
+    .input-field input:focus + label,
+    .input-field textarea:focus + label,
+    .input-field .prefix.active {
+      color: #2196F3 !important;
+    }
+
+    /* Date and time pickers */
+    .datepicker-modal,
+    .timepicker-modal {
+      border-radius: 8px;
+    }
+
+    .datepicker-date-display,
+    .timepicker-digital-display {
+      background-color: #2196F3;
+    }
+
+    /* Submit section */
+    .submit-section {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    /* Messages */
+    .messages-container {
+      margin-bottom: 20px;
+    }
+
+    .success {
+      background-color: #e8f5e9;
+      color: #388e3c;
+    }
+
+    .error {
+      background-color: #ffebee;
+      color: #d32f2f;
+    }
+
+    .info {
+      background-color: #e3f2fd;
+      color: #1976d2;
+    }
+
+    .warning {
+      background-color: #fff8e1;
+      color: #ffa000;
+    }
+
+    /* Footer */
+    .page-footer {
+      background-color: #2196F3;
+    }
+
+    /* Responsive adjustments */
+    @media only screen and (max-width: 600px) {
+      .form-card {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <div class="navbar-fixed">
+      <nav class="blue darken-1">
+        <div class="nav-wrapper container">
+          <a href="{% url 'dashboard' %}" class="brand-logo">Study Buddy</a>
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'dashboard' %}">Find Groups</a></li>
+            <li><a href="{% url 'create_group' %}">Create Group</a></li>
+            <li><a href="{% url 'profile' %}">My Profile</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+          </ul>
+          
+          <!-- Mobile navigation -->
+          <ul id="mobile-nav" class="sidenav">
+            <li><a href="{% url 'dashboard' %}">Find Groups</a></li>
+            <li><a href="{% url 'create_group' %}">Create Group</a></li>
+            <li><a href="{% url 'profile' %}">My Profile</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <div class="form-card card">
+          <h1 class="page-title center-align">Edit Study Group</h1>
+          
+          <!-- Form to edit a group -->
+          <form method="POST" action="{% url 'edit_group' group.id %}">
+            {% csrf_token %}
+            
+            <!-- Display any messages -->
+            {% if messages %}
+            <div class="messages-container">
+              {% for message in messages %}
+              <div class="card-panel {% if message.tags %}{{ message.tags }}{% endif %}">
+                <span>{{ message }}</span>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+            
+            <!-- Group Title -->
+            <div class="input-field">
+              <i class="material-icons prefix">title</i>
+              <input id="group_title" name="group_title" type="text" class="validate" value="{{ group.title }}" required aria-required="true">
+              <label for="group_title" class="active">Group Title</label>
+              <span class="helper-text">Enter a descriptive title for your study group</span>
+            </div>
+            
+            <!-- Subject Selection -->
+            <div class="input-field">
+              <i class="material-icons prefix">school</i>
+              <select id="subject" name="subject" required aria-required="true">
+                <option value="" disabled>Choose a subject</option>
+                {% for subject in subjects %}
+                <option value="{{ subject.id }}" {% if subject.id == group.subject.id %}selected{% endif %}>{{ subject.name }}</option>
+                {% endfor %}
+              </select>
+              <label for="subject">Subject</label>
+            </div>
+            
+            <!-- Description -->
+            <div class="input-field">
+              <i class="material-icons prefix">description</i>
+              <textarea id="description" name="description" class="materialize-textarea">{{ group.description }}</textarea>
+              <label for="description" class="active">Group Description</label>
+              <span class="helper-text">Describe what you'll be studying and your goals</span>
+            </div>
+            
+            <!-- Meeting Date and Time -->
+            <div class="row">
+              <div class="col s12 m6">
+                <div class="input-field">
+                  <i class="material-icons prefix">event</i>
+                  <input id="meeting_date" name="meeting_date" type="text" class="datepicker" value="{{ group.meeting_date|date:'m/d/Y' }}" required aria-required="true">
+                  <label for="meeting_date" class="active">Meeting Date</label>
+                </div>
+              </div>
+              <div class="col s12 m6">
+                <div class="input-field">
+                  <i class="material-icons prefix">access_time</i>
+                  <input id="meeting_time" name="meeting_time" type="text" class="timepicker" value="{{ group.meeting_time|time:'g:i A' }}" required aria-required="true">
+                  <label for="meeting_time" class="active">Meeting Time</label>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Maximum Members -->
+            <div class="input-field">
+              <i class="material-icons prefix">group</i>
+              <input id="max_members" name="max_members" type="number" min="{{ group.current_member_count }}" max="20" value="{{ group.max_members }}" required aria-required="true">
+              <label for="max_members" class="active">Maximum Members</label>
+              <span class="helper-text">Minimum: {{ group.current_member_count }} (current members), Maximum: 20</span>
+            </div>
+            
+            <!-- Meeting Location -->
+            <div class="input-field">
+              <i class="material-icons prefix">location_on</i>
+              <input id="location" name="location" type="text" value="{{ group.meeting_location }}">
+              <label for="location" class="active">Meeting Location (Optional)</label>
+              <span class="helper-text">Online or physical location</span>
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="submit-section">
+              <a href="{% url 'group_details' group.id %}" class="btn waves-effect waves-light grey">
+                Cancel
+                <i class="material-icons right">cancel</i>
+              </a>
+              <button type="submit" class="btn waves-effect waves-light">
+                Save Changes
+                <i class="material-icons right">save</i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer blue darken-2">
+    <div class="footer-copyright blue darken-3">
+      <div class="container">
+        © 2023 Study Buddy
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize select
+      var selectElems = document.querySelectorAll('select');
+      var selectInstances = M.FormSelect.init(selectElems);
+      
+      // Initialize datepicker
+      var dateElems = document.querySelectorAll('.datepicker');
+      var dateInstances = M.Datepicker.init(dateElems, {
+        format: 'mm/dd/yyyy',
+        defaultDate: new Date('{{ group.meeting_date|date:"Y-m-d" }}'),
+        setDefaultDate: true
+      });
+      
+      // Initialize timepicker
+      var timeElems = document.querySelectorAll('.timepicker');
+      var timeInstances = M.Timepicker.init(timeElems, {
+        defaultTime: '{{ group.meeting_time|time:"g:i A" }}',
+        twelveHour: true
+      });
+      
+      // Initialize sidenav
+      var sidenavElems = document.querySelectorAll('.sidenav');
+      var sidenavInstances = M.Sidenav.init(sidenavElems);
+    });
+  </script>
+</body>
+</html> 

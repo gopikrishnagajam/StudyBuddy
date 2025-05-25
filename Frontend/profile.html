@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile - Study Buddy</title>
+  
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Global styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background-color: #f5f5f5;
+    }
+
+    main {
+      flex: 1 0 auto;
+      padding: 20px 0;
+    }
+
+    .btn, .btn-large {
+      background-color: #2196F3;
+      border-radius: 4px;
+    }
+
+    .btn:hover, .btn-large:hover {
+      background-color: #1976D2;
+    }
+
+    /* Navbar */
+    nav .brand-logo {
+      font-weight: 600;
+    }
+
+    .dropdown-content {
+      border-radius: 4px;
+      top: 64px !important;
+    }
+
+    /* Page title */
+    .page-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #2196F3;
+    }
+
+    .page-subtitle {
+      color: #757575;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Profile card */
+    .profile-card {
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #e3f2fd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+    }
+
+    .profile-avatar i {
+      font-size: 40px;
+      color: #2196F3;
+    }
+
+    .profile-info h1 {
+      font-size: 1.8rem;
+      margin: 0 0 5px 0;
+    }
+
+    .profile-info p {
+      color: #757575;
+      margin: 0;
+    }
+
+    /* Sections */
+    .section-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #424242;
+      font-size: 1.25rem;
+    }
+
+    /* Subject chips */
+    .subject-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .chip {
+      background-color: white;
+      border: 1px solid #e0e0e0;
+      font-weight: 500;
+      height: 36px;
+      line-height: 36px;
+      padding: 0 15px;
+      border-radius: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .chip.selected {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .chip:hover {
+      background-color: #e0e0e0;
+    }
+
+    .chip.selected:hover {
+      background-color: #1976D2;
+    }
+
+    /* Form fields */
+    .input-field label {
+      color: #616161;
+    }
+
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=email]:focus + label,
+    .input-field textarea:focus + label {
+      color: #2196F3 !important;
+    }
+
+    .input-field input[type=text]:focus,
+    .input-field input[type=email]:focus,
+    .input-field textarea:focus {
+      border-bottom: 1px solid #2196F3 !important;
+      box-shadow: 0 1px 0 0 #2196F3 !important;
+    }
+
+    /* Form sections */
+    .form-section {
+      margin-bottom: 30px;
+    }
+
+    /* Submit button */
+    .submit-section {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    /* Footer */
+    .page-footer {
+      background-color: #2196F3;
+    }
+
+    /* Accessibility */
+    a:focus, button:focus, input:focus, textarea:focus {
+      outline: 2px solid #2196F3;
+      outline-offset: 2px;
+    }
+
+    .chip:focus {
+      outline: 2px solid #2196F3;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #2196F3;
+      color: white;
+      padding: 8px;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Navbar -->
+  <header>
+    <div class="navbar-fixed">
+      <nav class="blue" role="navigation" aria-label="Main navigation">
+        <div class="nav-wrapper container">
+          <a id="logo-container" href="index.html" class="brand-logo">Study Buddy</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="dashboard.html">Find Groups</a></li>
+            <li><a href="create_group.html">Create Group</a></li>
+            <li><a href="#" class="dropdown-trigger" data-target="user-dropdown">
+              <i class="material-icons left">account_circle</i>My Account<i class="material-icons right">arrow_drop_down</i>
+            </a></li>
+          </ul>
+          
+          <!-- User dropdown -->
+          <ul id="user-dropdown" class="dropdown-content">
+            <li class="active"><a href="profile.html"><i class="material-icons">person</i>Profile</a></li>
+            <li><a href="#"><i class="material-icons">settings</i>Settings</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><i class="material-icons">exit_to_app</i>Logout</a></li>
+          </ul>
+          
+          <!-- Mobile navigation -->
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul id="mobile-nav" class="sidenav">
+            <li><a href="dashboard.html">Find Groups</a></li>
+            <li><a href="create_group.html">Create Group</a></li>
+            <li class="active"><a href="profile.html">My Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container">
+    <div class="row">
+      <div class="col s12">
+        <div class="profile-card card">
+          <!-- Profile Header -->
+          <div class="profile-header">
+            <div class="profile-avatar">
+              <i class="material-icons">account_circle</i>
+            </div>
+            <div class="profile-info">
+              <h1 class="page-title">Jane Doe</h1>
+              <p>jane.doe@example.com</p>
+            </div>
+          </div>
+          
+          <form>
+            <!-- Basic Information Section -->
+            <div class="form-section">
+              <h2 class="section-title">Basic Information</h2>
+              
+              <div class="row">
+                <div class="col s12 m6">
+                  <div class="input-field">
+                    <input id="display_name" type="text" value="Jane Doe">
+                    <label for="display_name">Display Name</label>
+                  </div>
+                </div>
+                <div class="col s12 m6">
+                  <div class="input-field">
+                    <input id="email" type="email" value="jane.doe@example.com" disabled>
+                    <label for="email">Email</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="input-field">
+                <textarea id="bio" class="materialize-textarea">Computer Science student at State University, interested in web development and data science.</textarea>
+                <label for="bio">Bio</label>
+              </div>
+            </div>
+            
+            <!-- Subjects Section -->
+            <div class="form-section">
+              <h2 class="section-title">My Subjects</h2>
+              <p class="helper-text">Select the subjects you are interested in studying</p>
+              
+              <div class="subject-chips" role="group" aria-label="Select your subjects">
+                <div class="chip selected" tabindex="0" role="checkbox" aria-checked="true">Computer Science</div>
+                <div class="chip selected" tabindex="0" role="checkbox" aria-checked="true">Mathematics</div>
+                <div class="chip" tabindex="0" role="checkbox" aria-checked="false">Physics</div>
+                <div class="chip" tabindex="0" role="checkbox" aria-checked="false">Chemistry</div>
+                <div class="chip selected" tabindex="0" role="checkbox" aria-checked="true">Data Science</div>
+                <div class="chip" tabindex="0" role="checkbox" aria-checked="false">Biology</div>
+                <div class="chip" tabindex="0" role="checkbox" aria-checked="false">History</div>
+                <div class="chip" tabindex="0" role="checkbox" aria-checked="false">English Literature</div>
+                <div class="chip" tabindex="0" role="checkbox" aria-checked="false">Psychology</div>
+                <div class="chip" tabindex="0" role="checkbox" aria-checked="false">Economics</div>
+                <div class="chip" tabindex="0" role="checkbox" aria-checked="false">Business Studies</div>
+              </div>
+            </div>
+            
+            <!-- Notification Preferences -->
+            <div class="form-section">
+              <h2 class="section-title">Notification Preferences</h2>
+              
+              <p>
+                <label>
+                  <input type="checkbox" class="filled-in" checked />
+                  <span>Email me when someone joins my study group</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input type="checkbox" class="filled-in" checked />
+                  <span>Email me when there's a new message in my group</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input type="checkbox" class="filled-in" />
+                  <span>Email me about new study groups I might be interested in</span>
+                </label>
+              </p>
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="submit-section">
+              <button type="submit" class="btn btn-large waves-effect waves-light">
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container center-align">
+        &copy; 2023 Study Buddy. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

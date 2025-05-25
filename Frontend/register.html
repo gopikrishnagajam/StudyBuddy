@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Study Buddy</title>
+  
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Google Fonts - Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Global styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background-color: #f5f5f5;
+    }
+
+    main {
+      flex: 1 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .btn, .btn-large {
+      background-color: #2196F3;
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    .btn:hover, .btn-large:hover {
+      background-color: #1976D2;
+    }
+
+    /* Form card */
+    .auth-card {
+      max-width: 500px;
+      width: 100%;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .auth-title {
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #2196F3;
+      text-align: center;
+    }
+
+    .input-field input:focus {
+      border-bottom: 1px solid #2196F3 !important;
+      box-shadow: 0 1px 0 0 #2196F3 !important;
+    }
+
+    .input-field input:focus + label {
+      color: #2196F3 !important;
+    }
+
+    .helper-text {
+      font-size: 0.85rem;
+    }
+
+    .auth-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #2196F3;
+    }
+
+    .auth-logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .auth-logo i {
+      font-size: 3rem;
+      color: #2196F3;
+    }
+
+    /* Form validation styles */
+    .input-field input.valid {
+      border-bottom: 1px solid #4CAF50 !important;
+      box-shadow: 0 1px 0 0 #4CAF50 !important;
+    }
+
+    .input-field input.invalid {
+      border-bottom: 1px solid #F44336 !important;
+      box-shadow: 0 1px 0 0 #F44336 !important;
+    }
+
+    /* Accessibility */
+    a:focus, button:focus, input:focus {
+      outline: 2px solid #2196F3;
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #2196F3;
+      color: white;
+      padding: 8px;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <main id="main-content">
+    <div class="auth-card card">
+      <div class="auth-logo">
+        <i class="material-icons">school</i>
+      </div>
+      <h2 class="auth-title">Create Your Account</h2>
+      <form>
+        <!-- Email input -->
+        <div class="input-field">
+          <input id="email" type="email" class="validate" required aria-required="true">
+          <label for="email">Email</label>
+          <span class="helper-text" data-error="Please enter a valid email" data-success="Valid email">We'll never share your email</span>
+        </div>
+
+        <!-- Username input -->
+        <div class="input-field">
+          <input id="username" type="text" class="validate" required aria-required="true">
+          <label for="username">Username</label>
+          <span class="helper-text" data-error="Username is required" data-success="Valid username">Choose a unique username</span>
+        </div>
+
+        <!-- Password input -->
+        <div class="input-field">
+          <input id="password" type="password" class="validate" required aria-required="true">
+          <label for="password">Password</label>
+          <span class="helper-text" data-error="Password is required" data-success="Strong password">Must be at least 8 characters</span>
+        </div>
+
+        <!-- Confirm Password input -->
+        <div class="input-field">
+          <input id="confirm_password" type="password" class="validate" required aria-required="true">
+          <label for="confirm_password">Confirm Password</label>
+          <span class="helper-text" data-error="Passwords must match" data-success="Passwords match">Retype your password</span>
+        </div>
+
+        <!-- Submit button -->
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+          Register
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+      
+      <!-- Link to login page -->
+      <a href="login.html" class="auth-link">Already have an account? Login</a>
+    </div>
+  </main>
+</body>
+</html>
